@@ -38,13 +38,25 @@
 {% if settings.use_home_blocks %}
   <div class="jana-home-blocks">
     <div class="span4">
-      {{ 'home-block1.jpg' | asset_url | img_tag: 'home-block1' }}
+      {% if settings.use_home_block1_link %}
+        <a href="{{ settings.home_block1_link }}">{{ 'home-block1.jpg' | asset_url | img_tag: 'home-block1' }}</a>
+      {% else %}
+        {{ 'home-block1.jpg' | asset_url | img_tag: 'home-block1' }}
+      {% endif %}
     </div>
     <div class="span4">
-      {{ 'home-block2.jpg' | asset_url | img_tag: 'home-block2' }}
+      {% if settings.use_home_block2_link %}
+        <a href="{{ settings.home_block2_link }}">{{ 'home-block2.jpg' | asset_url | img_tag: 'home-block2' }}</a>
+      {% else %}
+        {{ 'home-block2.jpg' | asset_url | img_tag: 'home-block2' }}
+      {% endif %}
     </div>
     <div class="span4 p20">
-      {{ 'home-block3.jpg' | asset_url | img_tag: 'home-block3' }}
+      {% if settings.use_home_block3_link %}
+        <a href="{{ settings.home_block3_link }}">{{ 'home-block3.jpg' | asset_url | img_tag: 'home-block3' }}</a>
+      {% else %}
+        {{ 'home-block3.jpg' | asset_url | img_tag: 'home-block3' }}
+      {% endif %}
     </div>
   </div>
 {% endif %}

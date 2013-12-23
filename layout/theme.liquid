@@ -56,15 +56,19 @@
   </div>
   <div class="toolbar-wrapper">
     <div class="toolbar clearfix">
+      <div class="span3 clearfix fl">
+        <ul class="unstyled">
+          <li class="search-field fl">
+            <form class="search" action="/search">
+              <input type="image" src="{{ 'icon-search.png' | asset_url }}" alt="Go" id="go">
+              <input type="text" name="q" class="search_box" placeholder="SEARCH" value="{{ search.terms }}"  />
+            </form>
+          </li>
+        </ul>
+      </div>
       <div class="span2 clearfix jana-cart fr">
         <ul class="unstyled">
 
-          <!-- <li class="search-field fl">
-            <form class="search" action="/search">
-              <input type="image" src="{{ 'icon-search.png' | asset_url }}" alt="Go" id="go">
-              <input type="text" name="q" class="search_box" placeholder="Search" value="{{ search.terms }}"  />
-            </form>
-          </li> -->
           <li id="cart-target" class="toolbar-cart "><span class="icon-cart"></span><a href="/cart" class="cart" title="Shopping Cart">Bag: <span id="cart-count">{{ cart.item_count }} {{cart.item_count | pluralize: 'item', 'items' }}</span></a></li>
           {% if cart.item_count != 0 %}
           <li id="checkout-link" ><a href="/cart" title="Checkout">Check out</a></li>
@@ -84,7 +88,7 @@
 
       <!-- Begin below navigation -->
       <div class="span12 clearfix">
-        <div class="logo p20">
+        <div class="logo">
           {% if settings.use_logo %}
           <a href="/"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" /></a>
           {% if template == 'index' %}
@@ -98,6 +102,8 @@
 
       <section id="nav" class="row p30">
         <div class="span12">
+          <div class="jana-nav-line">
+          </div>
           <nav class="main jana-nav">
             {% include 'dropdown' %}
           </nav> <!-- /.main -->

@@ -2,11 +2,11 @@
 
   {% paginate collection.products by settings.pagination_limit %}
   <!-- Begin collection info -->
-  <div class="row">
+  <div class="row p0">
     <div class="span12">
 
       <!-- Begin breadcrumb -->
-      <div class="breadcrumb clearfix">
+      <!-- <div class="breadcrumb clearfix">
         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">Home</span></a></span>
         <span class="arrow-space">&#62;</span>
         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="url"><span itemprop="title">{{ collection.title }}</span></a></span>
@@ -21,7 +21,7 @@
         {% if paginate.pages != 0 %}
           <span class="arrow-space">&#62;</span> <strong>Page {{ paginate.current_page }} of {{ paginate.pages }}</strong>
         {% endif %}
-      </div>
+      </div> -->
       <!-- End breadcrumb -->
 
       <!-- Begin sort collection -->
@@ -62,16 +62,37 @@
     </div>
   </div>
   {% endif %}
+  <!-- End no products -->
+
+  <div class="row p0">
+    <div class="span2-product-loop">
+      <h1>category</h1>
+    </div>
+    <div class="span3 fr">
+      {% include 'pagination' %}
+    </div>
+  </div>
 
   <div class="row products">
-    {% for product in collection.products limit: settings.pagination_limit %}
-    {% include 'product-loop' with collection.handle %}
-    {% endfor %}
+    <div class="span2-product-loop">
+      <ul class="unstyled">
+        {% for link in linklists.shop-sidebar.links %}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="product-loop-container">
+      {% for product in collection.products limit: settings.pagination_limit %}
+      {% include 'product-loop' with collection.handle %}
+      {% endfor %}
+    </div>
   </div>
 
   {% include 'pagination' %}
 
   {% endpaginate %}
-  <!-- End no products -->
+
 
 </div>
