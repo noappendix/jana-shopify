@@ -12,21 +12,21 @@ $(document).ready(function(){
    }
 
    $(".addtocart").click(function(e){
-   
+
       var elem = $(this)
       $(elem).prop("disabled", true)
 
       e.preventDefault();
       addItem('add-item-form');
-     
+
    });
-  
+
    Shopify.onSuccess = function() {
-     
+
       var elem = $('.addtocart');
-     
+
       elem.removeAttr("disabled");
-     
+
       var quantity = parseInt(jQuery('[name="quantity"]').val(), 10) || 1;
 
       function animate() {
@@ -59,7 +59,7 @@ $(document).ready(function(){
             length: 0.50
           }
         };
-   
+
         $('#cart-animation').text(quantity).animate(
         {
           path : new $.path.bezier(path)
@@ -69,15 +69,15 @@ $(document).ready(function(){
           $("#cart-animation").fadeOut(500, function() {
             $(elem).prop("disabled", false)
             var cartCount =  parseInt($('#cart-count').text()) + quantity;
-            $('#cart-count').text(cartCount)
+            $('#cart-count').text(cartCount + (cartCount > 1 ? " items" : " item"));
           })
         }
         );
       }
-   
+
       animate();
     };
-  
+
     Shopify.onError = function(XMLHttpRequest, textStatus) {
       // Shopify returns a description of the error in XMLHttpRequest.responseText.
       // It is JSON.
@@ -144,7 +144,7 @@ jQuery(window).load(function(){
 });
 
 jQuery(document).ready(function($){
-    	
+
   $("a.zoom").fancybox({
     padding:0,
     'titleShow': false,
@@ -161,11 +161,11 @@ jQuery(document).ready(function($){
     $('#zoom-image').attr('href', $(this).attr('href'));
     return false;
   });
-   
+
   $('input[type="submit"], input.btn, button').click(function(){ // remove ugly outline on input button click
     $(this).blur();
   })
-  
+
   $("li.dropdown").hover(function(){
     $(this).children('.dropdown').show();
     $(this).children('.dropdown').stop();
@@ -180,27 +180,27 @@ jQuery(document).ready(function($){
       $(this).hide();
     });
   });
-  
+
   $('a[href^="#"]').bind('click.smoothscroll',function (e) {
 
     e.preventDefault();
-    
+
     var target = this.hash,
         $target = $(target);
-    
+
     $('html, body').stop().animate({
         'scrollTop': $target.offset().top
     }, 500, 'swing', function () {
         window.location.hash = target;
     });
   });
-  
+
   var tabs = $('ul.tabs > li > a');
   tabs.each(function(i) {
     jQuery(this).unbind('click.smoothscroll')
     .click(function(e) {
          var contentLocation = $(this).attr('href');
-    	 if(contentLocation.charAt(0)=="#") {            
+    	 if(contentLocation.charAt(0)=="#") {
   		tabs.removeClass('active');
   		$(this).addClass('active');
   		$(contentLocation).show().addClass('active').siblings().hide().removeClass('active');
@@ -208,15 +208,15 @@ jQuery(document).ready(function($){
       return false;
     });
   });
-  
+
 }); // end document ready
 
 /* jQuery css bezier animation support -- Jonah Fox */
- 
+
 ;(function($){
- 
+
   $.path = {};
- 
+
   var V = {
     rotate: function(p, degrees) {
       var radians = degrees * Math.PI / 180,
@@ -234,30 +234,30 @@ jQuery(document).ready(function($){
       return [a[0]-b[0], a[1]-b[1]];
     }
   };
- 
+
   $.path.bezier = function( params, rotate ) {
     params.start = $.extend( {angle: 0, length: 0.3333}, params.start );
     params.end = $.extend( {angle: 0, length: 0.3333}, params.end );
- 
+
     this.p1 = [params.start.x, params.start.y];
     this.p4 = [params.end.x, params.end.y];
- 
+
     var v14 = V.minus( this.p4, this.p1 ),
       v12 = V.scale( v14, params.start.length ),
       v41 = V.scale( v14, -1 ),
       v43 = V.scale( v41, params.end.length );
- 
+
     v12 = V.rotate( v12, params.start.angle );
     this.p2 = V.add( this.p1, v12 );
- 
+
     v43 = V.rotate(v43, params.end.angle );
     this.p3 = V.add( this.p4, v43 );
- 
+
     this.f1 = function(t) { return (t*t*t); };
     this.f2 = function(t) { return (3*t*t*(1-t)); };
     this.f3 = function(t) { return (3*t*(1-t)*(1-t)); };
     this.f4 = function(t) { return ((1-t)*(1-t)*(1-t)); };
- 
+
     /* p from 0 to 1 */
     this.css = function(p) {
       var f1 = this.f1(p), f2 = this.f2(p), f3 = this.f3(p), f4=this.f4(p), css = {};
@@ -272,26 +272,26 @@ jQuery(document).ready(function($){
       return css;
     };
   };
- 
+
   $.path.arc = function(params, rotate) {
     for ( var i in params ) {
       this[i] = params[i];
     }
- 
+
     this.dir = this.dir || 1;
- 
+
     while ( this.start > this.end && this.dir > 0 ) {
       this.start -= 360;
     }
- 
+
     while ( this.start < this.end && this.dir < 0 ) {
       this.start += 360;
     }
- 
+
     this.css = function(p) {
       var a = ( this.start * (p ) + this.end * (1-(p )) ) * Math.PI / 180,
         css = {};
- 
+
       if (rotate) {
         css.prevX = this.x;
         css.prevY = this.y;
@@ -303,7 +303,7 @@ jQuery(document).ready(function($){
       return css;
     };
   };
- 
+
   $.fx.step.path = function(fx) {
     var css = fx.end.css( 1 - fx.pos );
     if ( css.prevX != null ) {
@@ -312,5 +312,5 @@ jQuery(document).ready(function($){
     fx.elem.style.top = css.top;
     fx.elem.style.left = css.left;
   };
- 
+
 })(jQuery);

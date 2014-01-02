@@ -24,25 +24,6 @@
       </div> -->
       <!-- End breadcrumb -->
 
-      <!-- Begin sort collection -->
-      <div class="clearfix">
-        <!-- <h1 class="collection-title">{{ collection.title }}</h1> -->
-        {% if settings.collection_tags %}
-          {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
-          {% if collection.all_tags.size > 0 %}
-          <div class="browse-tags">
-          	<label>Browse:</label>
-          	<select name="collection_tags" id="collection_tags" class="loc_on_change">
-          		<option value="{{ col_url }}">All items</option>
-          		{% for tag in collection.all_tags %}
-          			<option value="{{col_url}}/{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{%endif%}>{{ tag }}</option>
-          		{% endfor %}
-          	</select>
-          </div>
-          {% endif %}
-        {% endif %}
-      </div>
-      <!-- End sort collection -->
 
       <!-- Begin collection description -->
       {% if collection.description != "" %}
@@ -68,6 +49,26 @@
     <div class="span2-product-loop">
       <h1>category</h1>
     </div>
+
+    <!-- Begin sort collection -->
+    <div class="span3-product-loop fl">
+      {% if settings.collection_tags %}
+        {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
+        {% if collection.all_tags.size > 0 %}
+        <div class="browse-tags">
+          <label>Filter:</label>
+          <select name="collection_tags" id="collection_tags" class="loc_on_change">
+            <option value="{{ col_url }}">All items</option>
+            {% for tag in collection.all_tags %}
+              <option value="{{col_url}}/{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{%endif%}>{{ tag }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+      {% endif %}
+    </div>
+    <!-- End sort collection -->
+
     <div class="span3 fr">
       {% include 'pagination' %}
     </div>
@@ -90,7 +91,13 @@
     </div>
   </div>
 
-  {% include 'pagination' %}
+  <div class="row">
+    <div class="span3 fr">
+      {% include 'pagination' %}
+    </div>
+  </div>
+
+
 
   {% endpaginate %}
 

@@ -64,7 +64,11 @@
 {% if settings.use_shipping_banner %}
   <div class="jana-shipping-banner">
     <div class="span12">
-      {{ 'shipping-banner.jpg' | asset_url | img_tag 'shipping-banner' }}
+      {% if settings.use_home_block3_link %}
+        <a href="{{ settings.shipping_banner_link }}">{{ 'shipping-banner.jpg' | asset_url | img_tag 'shipping-banner' }}</a>
+      {% else %}
+        {{ 'shipping-banner.jpg' | asset_url | img_tag 'shipping-banner' }}
+      {% endif %}
     </div>
   </div>
 {% endif %}

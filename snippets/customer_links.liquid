@@ -1,12 +1,12 @@
 {% if shop.customer_accounts_enabled %}
   {% if customer  %}
-    <li class="toolbar-customer"><a href="/account">Your Account</a></li>
+    <li class="toolbar-customer toolbar-cart">Hello, <a href="/account" class="text-capitalize text-underline">{{ customer.name }}</a> <span class="or">|</span> {{ 'Logout' | customer_logout_link }}</li>
   {% else %}
-    <li class="toolbar-customer">
-      {{ 'Log in' | customer_login_link }}
+    <li class="toolbar-customer toolbar-cart">
+      {{ 'Sign In' | customer_login_link }}
       {% if shop.customer_accounts_optional %}
-      <span class="or">or</span>
-      {{ 'Create an account' | customer_register_link }}
+      <span class="or">|</span>
+      {{ 'Join' | customer_register_link }}
       {% endif %}
     </li>
   {% endif %}

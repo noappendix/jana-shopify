@@ -1,10 +1,9 @@
 {% layout settings.customer_layout %}
 <div id="customer-account">
-  
+
   <div class="row">
     <div class="span12">
-      <h1 class="title clearfix">Account Details
-        <span class="note">{{ 'Logout' | customer_logout_link }}</span>
+      <h1 class="title clearfix">My Account
       </h1>
     </div>
   </div>
@@ -25,8 +24,8 @@
         <tbody>
           {% for order in customer.orders %}
           <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
-            <td>{{ order.name | link_to: order.customer_url }}</td>
-            <td><span class="note">{{ order.created_at | date: "%b %d, %Y" }}</span></td>
+            <td>{{ order.name | link_to: order.customer_url | 'testclass'}}</td>
+            <td><span>{{ order.created_at | date: "%b %d, %Y" }}</span></td>
             <td><span class="status_{{ order.financial_status }}">{{ order.financial_status }}</span></td>
             <td><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></td>
             <td><span class="total money">{{ order.total_price | money }}</span></td>
@@ -38,11 +37,11 @@
       <p>You haven't placed any orders yet.</p>
       {% endif %}
     </div>
-    
+
     <div id="customer_sidebar" class="span4">
       <h2>{{ customer.name }}</h2>
-      <p class="email note">{{ customer.email }}</p>
-      <div class="address note">
+      <p class="email black-box pa15">{{ customer.email }}</p>
+      <div class="address black-box pa15">
         {% if customer.default_address != nil %}
         <p>{{ customer.default_address.address1 }}</p>
         {% if customer.default_address.address2 != "" %}
@@ -55,6 +54,6 @@
         <a id="view_address" href="/account/addresses">View Addresses</a>
       </div>
     </div>
-    
-  </div> 
+
+  </div>
 </div>

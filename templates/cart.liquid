@@ -15,7 +15,6 @@
   {% else %}
   <div class="row">
     <div class="span12">
-      <h1>Your cart has {{cart.item_count}} {{ cart.item_count | pluralize: 'item', 'items' }} ({{ cart.total_price | money }}) All prices are in {{ shop.currency }}</h1>
       <form action="/cart" method="post" id="cartform">
         <table>
           <thead>
