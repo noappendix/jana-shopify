@@ -3,7 +3,7 @@
 <div class="product span3-product-loop">
 
   {% if product.price_min < product.compare_at_price_min %}
-    <span class="circle sale">Sale</span>
+    <span class="discount-ribbon sale"></span>
   {% endif %}
 
   <div class="image">
@@ -16,15 +16,18 @@
     <a href="{{ url }}" class="clearfix">
       <h4 class="title">{{ product.title }}</h4>
 
-      <span class="price">
       {% if product.available %}
         {% if product.compare_at_price_max > product.price %}
+        <span class="price on-sale-price">
           <del>{{ product.compare_at_price | money }}</del>
+          {{ product.price | money }}
+        {% else %}
+        <span class="price">
+          {{ product.price | money }}
         {% endif %}
         {% if product.price_varies %}
         <small><em>from</em></small>
         {% endif %}
-        {{ product.price | money }}
       {% else %}
         {{ product.price | money }} Sold Out
       {% endif %}

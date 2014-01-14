@@ -259,7 +259,7 @@ em { font-style: italic; }
 .table { display: table; margin: 0 auto; }
 .fixed { position: fixed; }
 
-.note { background:#ffffe3; border:2px dashed #eeeecd; padding:20px;}
+.note { background:#ffffe3; border:none; padding:20px;}
 .black-box { border: 1px solid #000000;}
 .logout-box {
   position: relative;
@@ -309,6 +309,10 @@ footer { width: 996px; margin: 0 auto; }
 .span2-product-loop > ul > li, .span2-product-loop > h1 {
   padding-left: 20px;
 }
+
+.span2-product-loop > ul > li > a.current {
+    color: #d78d75 !important;
+  }
 
 .span2-product-loop > ul {
   padding-top: 10px;
@@ -518,6 +522,30 @@ footer a {
 .product .vendor { font-size: 13px; margin-bottom: 2px; }
 .product .circle, #product .circle { position: absolute; text-transform: uppercase; z-index: 9999; font-size: 11px; line-height: 14px; right: -10px; top: -10px; color: #fff!important; padding: 17px 10px; -moz-border-radius: 40px; -webkit-border-radius: 40px; border-radius: 40px; font-weight: 700; -webkit-font-smoothing: subpixel-antialiased; }
 .product .circle.sale, #product .circle.sale { font-family: helvetica; background-color: {{ settings.shop_btn_color }}; opacity: .9; filter:alpha(opacity=90); -webkit-font-smoothing: subpixel-antialiased; }
+
+.product .discount-ribbon, #product .discount-ribbon {
+  position: absolute;
+  z-index: 9999;
+  right: -19px;
+  top: 12px;
+  padding: 17px 10px;
+  width: 65px;
+  height: 30px;
+}
+
+.product .discount-ribbon.sale, #product .discount-ribbon.sale {
+  background: url({{ 'ribbon-sale.png' | asset_url }}) no-repeat;
+  opacity: .9;
+  filter:alpha(opacity=90);
+}
+
+.on-sale-price {
+  color: #d77766 !important;
+}
+
+.on-sale-price > del {
+  color: #555555;
+}
 .breadcrumb { font-size: 12px; margin: 0 0 30px 0; }
 .breadcrumb .arrow-space { margin: -2px 6px 0; font-size: 10px; opacity: .5; filter:alpha(opacity=50); }
 .breadcrumb a { color: {{ settings.body_font_color }}; }
@@ -639,6 +667,15 @@ margin: 0 auto; }
 
 #customer_orders > table > tbody > tr > td:first-child > a:hover {
   text-decoration: underline;
+}
+
+.order_placed {
+  font-size: 18pt;
+  padding: 10px 0 15px;
+}
+
+#customer_sidebar > h2 {
+  padding-left: 20px;
 }
 
 /* =================== */

@@ -40,8 +40,8 @@
 
     <div id="customer_sidebar" class="span4">
       <h2>{{ customer.name }}</h2>
-      <p class="email black-box pa15">{{ customer.email }}</p>
-      <div class="address black-box pa15">
+      <p class="email note pa15">{{ customer.email }}</p>
+      <div class="address note pa15">
         {% if customer.default_address != nil %}
         <p>{{ customer.default_address.address1 }}</p>
         {% if customer.default_address.address2 != "" %}
