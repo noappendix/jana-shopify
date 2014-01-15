@@ -274,10 +274,17 @@
         {% endfor %}
       {% endif %}
     {% endfor %}
-
   });
   </script>
   {% endif %}
+  <script>
+  jQuery(document).ready(function($){
+    $('#reorder-options').change(function() {
+      var target = jQuery(this).val();
+      window.location.href = '{{shop.url}}' + '/collections' + '/' + target;
+    });
+  });
+  </script>
 
 </body>
 </html>

@@ -27,6 +27,20 @@
       </div>
       <!-- End breadcrumb -->
 
+      <!-- Sorting -->
+
+      <div id="reorder-drop-down" style="margin-top:10px; background-color:#e8e8e8; padding:10px; overflow:hidden">
+        <label style="display:inline; color: #777; font-size: 12px; font-weight: normal">Reorder this collection</label>
+        <select id="reorder-options" name="reorder-options">
+          <option value="alpha-asc"{% if collection.handle contains 'alpha-asc' %} selected="selected"{% endif %}>Alphabetically: A-Z</option>
+          <option value="alpha-desc"{% if collection.handle contains 'alpha-desc' %} selected="selected"{% endif %}>Alphabetically: Z-A</option>
+          <option value="best-selling"{% if collection.handle contains 'best-selling' %} selected="selected"{% endif %}>By Best Selling</option>
+          <option value="created-desc"{% if collection.handle contains 'created-desc' %} selected="selected"{% endif %}>By Created Date: Newest to Oldest</option>
+          <option value="created-asc"{% if collection.handle contains 'created-asc' %} selected="selected"{% endif %}>By Created Date: Oldest to Newest</option>
+          <option value="price-desc"{% if collection.handle contains 'price-desc' %} selected="selected"{% endif %}>By Price: Highest to Lowest</option>
+          <option value="price-asc"{% if collection.handle contains 'price-asc' %} selected="selected"{% endif %}>By Price: Lowest to Highest</option>
+        </select>
+      </div>
 
       <!-- Begin collection description -->
       {% if collection.description != "" %}
