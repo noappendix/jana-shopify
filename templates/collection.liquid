@@ -9,13 +9,50 @@
       <div class="breadcrumb clearfix">
         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">FastLove</span></a></span>
         <span class="arrow-space">&#62;</span>
-        {% if collection.title == 'Shop' %}
-          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="url"><span itemprop="title">{{ collection.title }}</span></a></span>
-        {% else %}
-          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/collections/all" title="FastLove Shop" itemprop="url"><span itemprop="title">Shop</span></a></span>
+
+        <!-- Begin Logic to show correct breadcrumb and not show sister collection handles -->
+
+        {% if collection.title == 'Shop' or collection.handle == 'alpha-asc' or collection.handle == 'alpha-desc' or collection.handle == 'best-selling' or  collection.handle == 'created-asc' or collection.handle == 'created-desc' or collection.handle == 'price-asc' or collection.handle == 'price-desc'%}
+
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/all" title="FastLove Shop" itemprop="url"><span itemprop="title">Shop</span></a></span>
+
+        {% elsif collection.handle == 'new-arrivals' or collection.handle == 'new-arrivals-alpha-asc' or collection.handle == 'new-arrivals-alpha-desc' or collection.handle == 'new-arrivals-price-desc' or collection.handle == 'new-arrivals-price-asc' or collection.handle == 'new-arrivals-best-selling'%}
+
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/all" title="FastLove Shop" itemprop="url"><span itemprop="title">Shop</span></a></span>
           <span class="arrow-space">&#62;</span>
-          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="url"><span itemprop="title">{{ collection.title }}</span></a></span>
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/new-arrivals" title="New Arrivals" itemprop="url"><span itemprop="title">New Arrivals</span></a></span>
+
+        {% elsif collection.handle == 'on-sale' or collection.handle == 'on-sale-alpha-asc' or collection.handle == 'on-sale-alpha-desc' or collection.handle == 'on-sale-price-desc' or collection.handle == 'on-sale-price-asc' or collection.handle == 'on-sale-best-selling'%}
+
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/all" title="FastLove Shop" itemprop="url"><span itemprop="title">Shop</span></a></span>
+          <span class="arrow-space">&#62;</span>
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/on-sale" title="New Arrivals" itemprop="url"><span itemprop="title">On Sale</span></a></span>
+
+        {% elsif collection.handle == 'bracelets' or collection.handle == 'bracelets-alpha-asc' or collection.handle == 'bracelets-alpha-desc' or collection.handle == 'bracelets-price-desc' or collection.handle == 'bracelets-price-asc' or collection.handle == 'bracelets-best-selling'%}
+
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/all" title="FastLove Shop" itemprop="url"><span itemprop="title">Shop</span></a></span>
+          <span class="arrow-space">&#62;</span>
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/bracelets" title="Bracelets" itemprop="url"><span itemprop="title">Bracelets</span></a></span>
+
+        {% elsif collection.handle == 'necklaces' or collection.handle == 'necklaces-alpha-asc' or collection.handle == 'necklaces-alpha-desc' or collection.handle == 'necklaces-price-desc' or collection.handle == 'necklaces-price-asc' or collection.handle == 'necklaces-best-selling'%}
+
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/all" title="FastLove Shop" itemprop="url"><span itemprop="title">Shop</span></a></span>
+          <span class="arrow-space">&#62;</span>
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/necklaces" title="Necklaces" itemprop="url"><span itemprop="title">Necklaces</span></a></span>
+
+        {% elsif collection.handle == 'earrings' or collection.handle == 'earrings-alpha-asc' or collection.handle == 'earrings-alpha-desc' or collection.handle == 'earrings-price-desc' or collection.handle == 'earrings-price-asc' or collection.handle == 'earrings-best-selling'%}
+
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/all" title="FastLove Shop" itemprop="url"><span itemprop="title">Shop</span></a></span>
+          <span class="arrow-space">&#62;</span>
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{shop.url}}/collections/earrings" title="earrings" itemprop="url"><span itemprop="title">Earrings</span></a></span>
+
+        {% else %}
+
+
+
         {% endif %}
+
+        <!-- End Breadcrumb Logic -->
 
         {% if current_tags %}
           {% for tag in current_tags %}
@@ -27,20 +64,11 @@
       </div>
       <!-- End breadcrumb -->
 
-      <!-- Sorting -->
+      <!-- <div class="blah">
+        {{ collection.handle }}
+      </div> -->
 
-      <div id="reorder-drop-down" style="margin-top:10px; background-color:#e8e8e8; padding:10px; overflow:hidden">
-        <label style="display:inline; color: #777; font-size: 12px; font-weight: normal">Reorder this collection</label>
-        <select id="reorder-options" name="reorder-options">
-          <option value="alpha-asc"{% if collection.handle contains 'alpha-asc' %} selected="selected"{% endif %}>Alphabetically: A-Z</option>
-          <option value="alpha-desc"{% if collection.handle contains 'alpha-desc' %} selected="selected"{% endif %}>Alphabetically: Z-A</option>
-          <option value="best-selling"{% if collection.handle contains 'best-selling' %} selected="selected"{% endif %}>By Best Selling</option>
-          <option value="created-desc"{% if collection.handle contains 'created-desc' %} selected="selected"{% endif %}>By Created Date: Newest to Oldest</option>
-          <option value="created-asc"{% if collection.handle contains 'created-asc' %} selected="selected"{% endif %}>By Created Date: Oldest to Newest</option>
-          <option value="price-desc"{% if collection.handle contains 'price-desc' %} selected="selected"{% endif %}>By Price: Highest to Lowest</option>
-          <option value="price-asc"{% if collection.handle contains 'price-asc' %} selected="selected"{% endif %}>By Price: Lowest to Highest</option>
-        </select>
-      </div>
+
 
       <!-- Begin collection description -->
       {% if collection.description != "" %}
@@ -69,7 +97,7 @@
 
     <!-- Begin sort collection -->
     <div class="span3-product-loop fl">
-      {% if settings.collection_tags %}
+      <!-- {% if settings.collection_tags %}
         {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
         {% if collection.all_tags.size > 0 %}
         <div class="browse-tags">
@@ -82,9 +110,86 @@
           </select>
         </div>
         {% endif %}
-      {% endif %}
+      {% endif %} -->
     </div>
     <!-- End sort collection -->
+
+    <!-- Sorting -->
+    <!-- Begin logic to show correct dropdown reorder list -->
+
+    <div class="span3-product-loop fl">
+
+      {% if collection.handle == 'all' or collection.handle == 'alpha-asc' or collection.handle == 'alpha-desc' or collection.handle == 'best-selling' or collection.handle == 'created-desc' or collection.handle == 'created-asc' or collection.handle == 'price-desc' or collection.handle == 'price-asc'%}
+
+        <div id="reorder-drop-down">
+          <label>Sort By:</label>
+          <select id="reorder-options" name="reorder-options">
+            <option value="best-selling"{% if collection.handle contains 'best-selling' %} selected="selected"{% endif %}>Most Popular</option>
+            <option value="alpha-asc"{% if collection.handle contains 'alpha-asc' %} selected="selected"{% endif %}>Name (A first)</option>
+            <option value="alpha-desc"{% if collection.handle contains 'alpha-desc' %} selected="selected"{% endif %}>Name (Z first)</option>
+            <option value="created-desc"{% if collection.handle contains 'created-desc' %} selected="selected"{% endif %}>Newest</option>
+            <option value="created-asc"{% if collection.handle contains 'created-asc' %} selected="selected"{% endif %}>Oldest</option>
+            <option value="price-desc"{% if collection.handle contains 'price-desc' %} selected="selected"{% endif %}>Highest Price</option>
+            <option value="price-asc"{% if collection.handle contains 'price-asc' %} selected="selected"{% endif %}>Lowest Price</option>
+          </select>
+        </div>
+
+      {% elsif collection.handle == 'new-arrivals' or collection.handle == 'new-arrivals-price-desc' or collection.handle == 'new-arrivals-price-asc' or collection.handle == 'new-arrivals-alpha-asc' or collection.handle == 'new-arrivals-alpha-desc' or collection.handle == 'new-arrivals-best-selling'%}
+
+        <div id="reorder-drop-down">
+          <label>Sort By:</label>
+          <select id="reorder-options" name="reorder-options">
+            <option value="new-arrivals-best-selling"{% if collection.handle contains 'new-arrivals-best-selling' %} selected="selected"{% endif %}>Most Popular</option>
+            <option value="new-arrivals-alpha-asc"{% if collection.handle contains 'new-arrivals-alpha-asc' %} selected="selected"{% endif %}>Name (A first)</option>
+            <option value="new-arrivals-alpha-desc"{% if collection.handle contains 'new-arrivals-alpha-desc' %} selected="selected"{% endif %}>Name (Z first)</option>
+            <option value="new-arrivals-price-desc"{% if collection.handle contains 'new-arrivals-price-desc' %} selected="selected"{% endif %}>Highest Price</option>
+            <option value="new-arrivals-price-asc"{% if collection.handle contains 'new-arrivals-price-asc' %} selected="selected"{% endif %}>Lowest Price</option>
+          </select>
+        </div>
+
+        {% elsif collection.handle == 'on-sale' or collection.handle == 'on-sale-price-desc' or collection.handle == 'on-sale-price-asc' or collection.handle == 'on-sale-alpha-asc' or collection.handle == 'on-sale-alpha-desc' or collection.handle == 'on-sale-best-selling'%}
+
+          <div id="reorder-drop-down">
+            <label>Sort By:</label>
+            <select id="reorder-options" name="reorder-options">
+              <option value="on-sale-best-selling"{% if collection.handle contains 'on-sale-best-selling' %} selected="selected"{% endif %}>Most Popular</option>
+              <option value="on-sale-alpha-asc"{% if collection.handle contains 'on-sale-alpha-asc' %} selected="selected"{% endif %}>Name (A first)</option>
+              <option value="on-sale-alpha-desc"{% if collection.handle contains 'on-sale-alpha-desc' %} selected="selected"{% endif %}>Name (Z first)</option>
+              <option value="on-sale-price-desc"{% if collection.handle contains 'on-sale-price-desc' %} selected="selected"{% endif %}>Highest Price</option>
+              <option value="on-sale-price-asc"{% if collection.handle contains 'on-sale-price-asc' %} selected="selected"{% endif %}>Lowest Price</option>
+            </select>
+          </div>
+
+        {% elsif collection.handle == 'bracelets' or collection.handle == 'bracelets-price-desc' or collection.handle == 'bracelets-price-asc' or collection.handle == 'bracelets-alpha-asc' or collection.handle == 'bracelets-alpha-desc' or collection.handle == 'bracelets-best-selling'%}
+
+          <div id="reorder-drop-down">
+            <label>Sort By:</label>
+            <select id="reorder-options" name="reorder-options">
+              <option value="bracelets-best-selling"{% if collection.handle contains 'bracelets-best-selling' %} selected="selected"{% endif %}>Most Popular</option>
+              <option value="bracelets-alpha-asc"{% if collection.handle contains 'bracelets-alpha-asc' %} selected="selected"{% endif %}>Name (A first)</option>
+              <option value="bracelets-alpha-desc"{% if collection.handle contains 'bracelets-alpha-desc' %} selected="selected"{% endif %}>Name (Z first)</option>
+              <option value="bracelets-price-desc"{% if collection.handle contains 'bracelets-price-desc' %} selected="selected"{% endif %}>Highest Price</option>
+              <option value="bracelets-price-asc"{% if collection.handle contains 'bracelets-price-asc' %} selected="selected"{% endif %}>Lowest Price</option>
+            </select>
+          </div>
+
+          {% elsif collection.handle == 'necklaces' or collection.handle == 'necklaces-price-desc' or collection.handle == 'necklaces-price-asc' or collection.handle == 'necklaces-alpha-asc' or collection.handle == 'necklaces-alpha-desc' or collection.handle == 'necklaces-best-selling'%}
+
+          <div id="reorder-drop-down">
+            <label>Sort By:</label>
+            <select id="reorder-options" name="reorder-options">
+              <option value="necklaces-best-selling"{% if collection.handle contains 'necklaces-best-selling' %} selected="selected"{% endif %}>Most Popular</option>
+              <option value="necklaces-alpha-asc"{% if collection.handle contains 'necklaces-alpha-asc' %} selected="selected"{% endif %}>Name (A first)</option>
+              <option value="necklaces-alpha-desc"{% if collection.handle contains 'necklaces-alpha-desc' %} selected="selected"{% endif %}>Name (Z first)</option>
+              <option value="necklaces-price-desc"{% if collection.handle contains 'necklaces-price-desc' %} selected="selected"{% endif %}>Highest Price</option>
+              <option value="necklaces-price-asc"{% if collection.handle contains 'necklaces-price-asc' %} selected="selected"{% endif %}>Lowest Price</option>
+            </select>
+          </div>
+
+        {% endif %}
+
+      </div>
+      <!-- End dropdown reorder logic -->
 
     <div class="span3 fr">
       {% include 'pagination' %}

@@ -1,29 +1,66 @@
 {% layout settings.customer_layout %}
 <div id="customer-login">
   <div class="row">
-    <div id="login" class="span12">
-      <h2 class="title p30">Sign In</h2>
+    {% if shop.checkout.guest_login %}
+    <div class="span12">
+      <div id="login" style="width: 40%;">
+        <h2 class="title p30">Sign In</h2>
 
-      {% form 'customer_login' %}
-      {{ form.errors | default_errors }}
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
 
-      <label for="customer_email" class="label p5">Email Address</label>
-      <input type="email" value="" name="customer[email]" id="customer_email" class="text tc p15" />
+        <label for="customer_email" class="label p5">Email Address</label>
+        <input type="email" value="" name="customer[email]" id="customer_email" class="text tc p15" />
 
-      {% if form.password_needed %}
-      <label for="customer_password" class="label p5">Password</label>
-      <input type="password" value="" name="customer[password]" id="customer_password" class="text tc p15" size="16" />
-      <a href="#" onclick="showRecoverPasswordForm();return false;">Forgot your password?</a>
-      {% endif %}
+        {% if form.password_needed %}
+        <label for="customer_password" class="label p5">Password</label>
+        <input type="password" value="" name="customer[password]" id="customer_password" class="text tc p15" size="16" />
+        <a href="#" onclick="showRecoverPasswordForm();return false;">Forgot your password?</a>
+        {% endif %}
 
-      <div class="action_bottom p15">
-        <input class="btn" type="submit" value="Sign In" />
+        <div class="action_bottom p15">
+          <input class="btn" type="submit" value="Sign In" />
+        </div>
+        {% endform %}
+
+        <p>Not a member yet? {{ 'Join Now!' | customer_register_link }}</p>
       </div>
-      {% endform %}
 
-      <p>Not a member yet? {{ 'Join Now!' | customer_register_link }}</p>
+      <div class="vertical-divider"></div>
 
+      <div id="guest">
+        <h2>Guest Login</h2>
+        {% form 'guest_login' %}
+        <input class="btn" type="submit" value="Continue as Guest" />
+        {% endform %}
+      </div>
     </div>
+
+    {% else %}
+      <div id="login" class="span12">
+        <h2 class="title p30">Sign In</h2>
+
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+
+        <label for="customer_email" class="label p5">Email Address</label>
+        <input type="email" value="" name="customer[email]" id="customer_email" class="text tc p15" />
+
+        {% if form.password_needed %}
+        <label for="customer_password" class="label p5">Password</label>
+        <input type="password" value="" name="customer[password]" id="customer_password" class="text tc p15" size="16" />
+        <a href="#" onclick="showRecoverPasswordForm();return false;">Forgot your password?</a>
+        {% endif %}
+
+        <div class="action_bottom p15">
+          <input class="btn" type="submit" value="Sign In" />
+        </div>
+        {% endform %}
+
+        <p>Not a member yet? {{ 'Join Now!' | customer_register_link }}</p>
+
+      </div>
+    {% endif %}
 
     <div id="recover-password" style="display:none;" class="span7">
       <h2>Reset Password</h2>
@@ -39,15 +76,6 @@
       <span class="note">or <a href="#" onclick="hideRecoverPasswordForm();return false;">Cancel</a></span>
       {% endform %}
     </div>
-
-    {% if shop.checkout.guest_login %}
-    <div id="guest" class="span5">
-      <h2>Guest Login</h2>
-      {% form 'guest_login' %}
-      <input class="btn" type="submit" value="Continue as Guest" />
-      {% endform %}
-    </div>
-    {% endif %}
 
   </div>
 </div>

@@ -100,3 +100,33 @@ span.sign-in-message { line-height:28px; }
 {% endif %}
 
 #container { background-color: transparent !important; }
+
+#overview > h2, #overview > table {
+  text-align: center;
+}
+
+#header > #tagline {
+  text-align: center;
+}
+
+#overview {
+  background: none !important;
+  border-bottom: none !important;
+}
+
+#container.slim #header {
+  background: none !important;
+}
+
+#create-account-btn {
+  -webkit-box-shadow:none; -moz-box-shadow:none; box-shadow:none; display:inline-block; height:42px; line-height:42px; border:none; margin:10px 0; padding:0 20px; color:#fff;  font-weight:700; font-size:18px; font-family: 'Courier New'; text-transform:none;background:{{ settings.shop_btn_color }}; width:auto;
+}
+
+#create-account-btn:hover {
+  background-color:#d97139; color:#fff;
+}
+
+#create-account input {
+  font-family: 'courier new';
+  font-weight: 700;
+}

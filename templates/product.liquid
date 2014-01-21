@@ -8,10 +8,24 @@
         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">FastLove</span></a></span>
         <span class="arrow-space">&#62;</span>
         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-          {% if collection.title != 'Shop' %}
+          {% if product.tags contains 'necklace' %}
+
             <a href="/collections/all" title="Shop">Shop</a>
             <span class="arrow-space">&#62;</span>
-            <a href="{{ collection.url }}" title="{{ collection.title | escape }}">{{ collection.title }}</a>
+            <a href="/collections/necklace" title="necklaces">Necklaces</a>
+
+          {% elsif product.tags contains 'bracelet' %}
+
+            <a href="/collections/all" title="Shop">Shop</a>
+            <span class="arrow-space">&#62;</span>
+            <a href="/collections/bracelets" title="necklaces">Bracelets</a>
+
+          {% elsif product.tags contains 'earring' %}
+
+            <a href="/collections/all" title="Shop">Shop</a>
+            <span class="arrow-space">&#62;</span>
+            <a href="/collections/earrings" title="necklaces">Earrings</a>
+
           {% else %}
             <a href="/collections/all" title="Shop">Shop</a>
           {% endif %}
