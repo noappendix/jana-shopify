@@ -64,12 +64,6 @@
       </div>
       <!-- End breadcrumb -->
 
-      <!-- <div class="blah">
-        {{ collection.handle }}
-      </div> -->
-
-
-
       <!-- Begin collection description -->
       {% if collection.description != "" %}
         {{ collection.description }}
@@ -93,31 +87,44 @@
   <div class="row p0">
     <div class="span2-product-loop">
       <h1>category</h1>
+      <br>
+      <ul class="unstyled shop-side-menu">
+        {% for link in linklists.shop-sidebar.links %}
+          <li>
+            <a href="{{ link.url }}" {% if link.title == page_title %} class="current"{% endif %}>{{ link.title }} </a>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
 
-    <!-- Begin sort collection -->
-    <div class="span3-product-loop fl">
-      <!-- {% if settings.collection_tags %}
-        {% capture col_url%}{% if collection.url.size == 0 %}/collections/all{%else%}{{collection.url}}{%endif%}{%endcapture%}
-        {% if collection.all_tags.size > 0 %}
-        <div class="browse-tags">
-          <label>Filter:</label>
-          <select name="collection_tags" id="collection_tags" class="loc_on_change">
-            <option value="{{ col_url }}">All items</option>
-            {% for tag in collection.all_tags %}
-              <option value="{{col_url}}/{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{%endif%}>{{ tag }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
-      {% endif %} -->
+    <div class="shop-banner">
+
+      {% if collection.title == 'Shop' or collection.handle == 'alpha-asc' or collection.handle == 'alpha-desc' or collection.handle == 'best-selling' or  collection.handle == 'created-asc' or collection.handle == 'created-desc' or collection.handle == 'price-asc' or collection.handle == 'price-desc'%}
+
+        <img src="{{ 'banner-shop.jpg' | asset_url }}" alt="shop" />
+
+      {% elsif collection.handle == 'new-arrivals' or collection.handle == 'new-arrivals-alpha-asc' or collection.handle == 'new-arrivals-alpha-desc' or collection.handle == 'new-arrivals-price-desc' or collection.handle == 'new-arrivals-price-asc' or collection.handle == 'new-arrivals-best-selling'%}
+
+        <img src="{{ 'banner-new.jpg' | asset_url }}" alt="new arrivals" />
+
+      {% elsif collection.handle == 'on-sale' or collection.handle == 'on-sale-alpha-asc' or collection.handle == 'on-sale-alpha-desc' or collection.handle == 'on-sale-price-desc' or collection.handle == 'on-sale-price-asc' or collection.handle == 'on-sale-best-selling'%}
+
+        <img src="{{ 'banner-sale.jpg' | asset_url }}" alt="on sale" />
+
+      {% elsif collection.handle == 'bracelets' or collection.handle == 'bracelets-alpha-asc' or collection.handle == 'bracelets-alpha-desc' or collection.handle == 'bracelets-price-desc' or collection.handle == 'bracelets-price-asc' or collection.handle == 'bracelets-best-selling'%}
+
+        <img src="{{ 'banner-bracelets.jpg' | asset_url }}" alt="bracelets" />
+
+      {% else collection.handle == 'necklaces' or collection.handle == 'necklaces-alpha-asc' or collection.handle == 'necklaces-alpha-desc' or collection.handle == 'necklaces-price-desc' or collection.handle == 'necklaces-price-asc' or collection.handle == 'necklaces-best-selling'%}
+
+        <img src="{{ 'banner-necklaces.jpg' | asset_url }}" alt="necklaces" />
+
+      {% endif %}
     </div>
-    <!-- End sort collection -->
 
-    <!-- Sorting -->
-    <!-- Begin logic to show correct dropdown reorder list -->
+    <div class="span3-product-loop fl p20">
 
-    <div class="span3-product-loop fl">
+      <!-- Sorting -->
 
       {% if collection.handle == 'all' or collection.handle == 'alpha-asc' or collection.handle == 'alpha-desc' or collection.handle == 'best-selling' or collection.handle == 'created-desc' or collection.handle == 'created-asc' or collection.handle == 'price-desc' or collection.handle == 'price-asc'%}
 
@@ -194,22 +201,16 @@
     <div class="span3 fr">
       {% include 'pagination' %}
     </div>
-  </div>
 
-  <div class="row products">
-    <div class="span2-product-loop">
-      <ul class="unstyled">
-        {% for link in linklists.shop-sidebar.links %}
-          <li>
-            <a href="{{ link.url }}" {% if link.title == page_title %} class="current"{% endif %}>{{ link.title }} </a>
-          </li>
+
+    <div class="products">
+      <div class="span2-product-loop">
+      </div>
+      <div class="product-loop-container">
+        {% for product in collection.products limit: settings.pagination_limit %}
+        {% include 'product-loop' with collection.handle %}
         {% endfor %}
-      </ul>
-    </div>
-    <div class="product-loop-container">
-      {% for product in collection.products limit: settings.pagination_limit %}
-      {% include 'product-loop' with collection.handle %}
-      {% endfor %}
+      </div>
     </div>
   </div>
 

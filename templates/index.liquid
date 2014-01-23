@@ -60,14 +60,23 @@
 {% if settings.use_shipping_banner %}
   <div class="jana-shipping-banner">
     <div class="span12">
-      {% if settings.use_home_block3_link %}
-        <a href="{{ settings.shipping_banner_link }}">{{ 'shipping-banner.jpg' | asset_url | img_tag 'shipping-banner' }}</a>
-      {% else %}
-        {{ 'shipping-banner.jpg' | asset_url | img_tag 'shipping-banner' }}
-      {% endif %}
+      <a href="#" data-reveal-id="free-shipping-modal">{{ 'shipping-banner.jpg' | asset_url | img_tag 'shipping-banner' }}</a>
     </div>
   </div>
+
+  <div id="free-shipping-modal" class="reveal-modal" data-reveal>
+    <h1>Save even more with free shipping!</h1>
+    <p>
+      Free domestic shipping on orders of $75 or more.
+    </p>
+    <p>
+      Free international shipping on orders of $200 or more.
+    </p>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
 {% endif %}
+
+
 
 
 <!-- start featured product -->
